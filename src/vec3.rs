@@ -1,3 +1,4 @@
+use std::ops::Mul;
 use std::ops::MulAssign;
 use std::ops::DivAssign;
 
@@ -64,6 +65,16 @@ impl Vec3 {
             ],
         }
     }
+
+    pub fn add_scalar(&self, scalar: f64) -> Vec3 {
+        Vec3 {
+          e: [
+            self.e[0] + scalar,
+            self.e[1] + scalar,
+            self.e[2] + scalar,
+          ]
+        }
+       }
 }
 
 impl std::ops::Neg for Vec3 {
@@ -163,6 +174,14 @@ impl std::ops::Mul<f64> for Vec3 {
            e: [self.e[0] * t, self.e[1] * t, self.e[2] * t],
        }
    }
+}
+
+impl Mul<Vec3> for f64 {
+    type Output = Vec3;
+
+    fn mul(self, vec: Vec3) -> Self::Output {
+        vec * self
+    }
 }
 
 impl std::ops::Div<f64> for Vec3 {
